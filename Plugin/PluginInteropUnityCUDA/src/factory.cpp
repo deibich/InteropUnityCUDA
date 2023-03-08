@@ -1,5 +1,7 @@
 #include "vertex_buffer_OpenGLCoreES.h"
 #include "texture_OpenGLCoreES.h"
+#include "texture_D3D11.h"
+#include "vertex_buffer_D3D11.h"
 
 namespace Factory
 {
@@ -12,7 +14,13 @@ namespace Factory
 		{
 			buffer = new VertexBuffer_OpenGLCoreES(bufferHandle, size);
 		}
-#endif 
+#endif
+#if SUPPORT_D3D11
+        if (apiType == kUnityGfxRendererD3D11)
+        {
+            buffer = new VertexBuffer_D3D11(bufferHandle, size);
+        }
+#endif
 
 		// Unknown or unsupported graphics API
 		return buffer;
@@ -46,9 +54,13 @@ namespace Factory
 		}
 #endif 
 
-		// will be NULL is unknown or unsupported graphics API
+#if SUPPORT_D3D11
+        if (apiType == kUnityGfxRendererD3D11)
+        {
+            texture = new Texture_D3D11(textureHandle, textureWidth, textureHeight, textureDepth);
+        }
+#endif
+		// will be NULL if unknown or unsupported graphics API
 		return texture;
 	}
-
-
 }
