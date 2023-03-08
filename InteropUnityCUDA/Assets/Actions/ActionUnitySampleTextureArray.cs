@@ -15,9 +15,9 @@ namespace ActionUnity
 		/// create a pointer to actionSampleTextureArray object that has been created in native plugin
 		/// </summary>
 		/// <param name="renderTexture">render texture that will be used in interoperability</param>
-		public ActionUnitySampleTextureArray(RenderTexture renderTexture) : base()
+		public ActionUnitySampleTextureArray(Texture2DArray renderTexture) : base()
 		{
-			_actionPtr = createActionSampleTextureArrayBasic(renderTexture.GetNativeTexturePtr(), renderTexture.width, renderTexture.height, renderTexture.volumeDepth);
+			_actionPtr = createActionSampleTextureArrayBasic(renderTexture.GetNativeTexturePtr(), renderTexture.width, renderTexture.height, renderTexture.depth);
 		}
 	}
 

@@ -25,6 +25,7 @@ ActionSampleTextureArray::ActionSampleTextureArray(void *texturePtr, int width,
 inline int ActionSampleTextureArray::Start()
 {
     _texture->registerTextureInCUDA();
+    // Comment in next line for d3d11
     _surf = _texture->mapTextureToSurfaceObject();
     return 0;
 }
@@ -35,22 +36,24 @@ int ActionSampleTextureArray::Update()
         _texture->getDimGrid(), _texture->getDimBlock(),
                              _surf, GetTime(), _texture->getWidth(),
                              _texture->getHeight(), _texture->getDepth());
-
-    //for (int i = 0; i < _texture->getDepth(); i++)
-    //{
-    //    cudaSurfaceObject_t surf = _texture->mapTextureToSurfaceObject(i);
-    //    kernelCallerWriteTexture(_texture->getDimGrid(),
-    //    _texture->getDimBlock(), surf, GetTime()+2*i, _texture->getWidth(),
-    //    _texture->getHeight()); 
-    //    _texture->unMapTextureToSurfaceObject(surf);
-    //}
-
+    // Uncomment for d3d11
+    /*
+    for (int i = 0; i < _texture->getDepth(); i++)
+    {
+        cudaSurfaceObject_t surf = _texture->mapTextureToSurfaceObject(i);
+        kernelCallerWriteTexture(_texture->getDimGrid(),
+        _texture->getDimBlock(), surf, GetTime()+2*i, _texture->getWidth(),
+        _texture->getHeight()); 
+        _texture->unMapTextureToSurfaceObject(surf);
+    }
+    */
     cudaDeviceSynchronize();
     return 0;
 }
 
 inline int ActionSampleTextureArray::OnDestroy()
 {
+    // Comment in next line for d3d11
     _texture->unMapTextureToSurfaceObject(_surf);
     _texture->unRegisterTextureInCUDA();
     return 0;
