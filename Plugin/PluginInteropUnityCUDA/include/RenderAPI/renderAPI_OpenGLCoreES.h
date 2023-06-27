@@ -1,5 +1,4 @@
 #pragma once
-#include "openGL_include.h"
 #include "renderAPI.h"
 #include "framework.h"
 
@@ -8,6 +7,7 @@
 
 
 #if SUPPORT_OPENGL_UNIFIED
+#include "openGL_include.h"
 
 class RenderAPI_OpenGLCoreES : public RenderAPI
 {
