@@ -1,3 +1,4 @@
+find_package(gl3w CONFIG REQUIRED)
 
 add_library(PluginInteropUnityCUDA SHARED
     "src/unity_plugin.cpp"
@@ -33,6 +34,7 @@ target_link_libraries(PluginInteropUnityCUDA
         CUDA::cudart
         Utilities
         unity_api
+        unofficial::gl3w::gl3w        
 )
 
 install(TARGETS PluginInteropUnityCUDA DESTINATION ${UNITY_PROJECT_ROOT_DIR}/Assets/Plugin)

@@ -1,0 +1,19 @@
+{
+    "version": 3,
+    "configurePresets": [
+        {
+            "name": "dev-common",
+            "inherits": "Default",
+            "cacheVariables": {
+                "CMAKE_TOOLCHAIN_FILE": {
+                    "type": "PATH",
+                    "value": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+                },
+                "UNITY_PROJECT_ROOT_DIR": {
+                    "type": "PATH",
+                    "value": "${CMAKE_SOURCE_DIR}/../InteropUnityCUDA"
+                }
+            }
+        }
+    ]
+}
