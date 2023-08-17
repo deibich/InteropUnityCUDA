@@ -328,11 +328,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 115995700}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccf9ced7ccbcd1845892a1b6d8b8babb, type: 3}
+  m_Script: {fileID: 11500000, guid: c303f1bc15589e74091e4fc42e069b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hSliderValue: 0
-  vSliderValue: 0.03
+  vSliderValue: 0
   img: {fileID: 1722569711}
   cubeRenderer: {fileID: 909050478}
   boxTransform: {fileID: 909050480}
@@ -514,7 +514,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1aea9489fe5a44740a20c069e84d23fe, type: 2}
+  - {fileID: 2100000, guid: 14e1a941de4798247bcbc5fedd7a28c1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1000,9 +1000,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1913126396}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.618424, y: -8.773706, z: -9.29474}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

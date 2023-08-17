@@ -14,7 +14,7 @@ Shader"Unlit/Cube Target Shader"
 
         Pass
         {
-            // Blend SrcAlpha OneMinusSrcAlpha
+            // Blend SrcAlpha OneMinusSrcAlpha 
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
