@@ -13,7 +13,9 @@
 // On Windows, use gl3w to initialize and load OpenGL Core functions. In principle any other
 // library (like GLEW, GLFW etc.) can be used; here we use gl3w since it's simple and
 // straightforward.
-#	include "gl3w.h"
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#include "GL/gl3w.h"
 #elif UNITY_LINUX
 #	define GL_GLEXT_PROTOTYPES
 #	include <GL/gl.h>

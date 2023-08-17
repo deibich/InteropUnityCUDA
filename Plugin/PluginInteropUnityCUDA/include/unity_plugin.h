@@ -130,6 +130,9 @@ extern "C"
     UNITY_INTERFACE_EXPORT size_t UNITY_INTERFACE_API
     RegisterAction(Action *action);
 
+    UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API
+    UnregisterAction(size_t key);
+
     /**
      * @brief      Initialize the register of actions, this has to be called
      * before register actions

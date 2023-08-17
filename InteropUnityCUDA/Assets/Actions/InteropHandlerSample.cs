@@ -6,7 +6,6 @@ using Utilities;
 
 namespace ActionUnity
 {
-
     public class InteropHandlerSample : InteropHandler
     {
         // the id which will be use in registration of action texture
@@ -16,7 +15,7 @@ namespace ActionUnity
         // the id which will be use in registration of action vertex buffer
         private const string _ActionVertexBufferName = "sampleVertexBuffer";
 
-        // raw image for texture 
+        // raw image for texture
         [SerializeField] private RawImage _rawImageOneTexture;
         [SerializeField] private RawImage _rawImageTextureArray0;
         [SerializeField] private RawImage _rawImageTextureArray1;
@@ -74,7 +73,6 @@ namespace ActionUnity
         private void Start()
         {
             InitializeInteropHandler();
-            
         }
 
         /// <summary>
@@ -132,7 +130,7 @@ namespace ActionUnity
         protected override void UpdateActions()
         {
             base.UpdateActions();
-            CallFunctionUpdateInAction(_ActionTextureName);
+            //CallFunctionUpdateInAction(_ActionTextureName);
             CallFunctionUpdateInAction(_ActionTextureArrayName);
             CallFunctionUpdateInAction(_ActionVertexBufferName);
 

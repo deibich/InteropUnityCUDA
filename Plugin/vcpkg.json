@@ -1,6 +1,8 @@
 {
-    "dependencies": [
-      "gl3w"
-    ]
+  "dependencies": [
+    "glfw3",
+    "gl3w",
+    "tinyxml2",
+    "cfitsio"
+  ]
 }
-  

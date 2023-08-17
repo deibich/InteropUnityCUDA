@@ -35,6 +35,7 @@ Texture::Texture(void *textureHandle, int textureWidth, int textureHeight,
                                  (unsigned int)textureDepth},
                                 false);
     // initialize surface object
+    surfObjVector.resize(textureDepth);
     _surfObjArray = new cudaSurfaceObject_t[textureDepth];
 
     CUDA_CHECK(cudaMalloc(&d_surfObjArray,
@@ -42,6 +43,7 @@ Texture::Texture(void *textureHandle, int textureWidth, int textureHeight,
 
     for (int i = 0; i < textureDepth; i++)
     {
+        surfObjVector[i] = 0;
         _surfObjArray[i] = 0;
     }
 
@@ -50,11 +52,12 @@ Texture::Texture(void *textureHandle, int textureWidth, int textureHeight,
 
 Texture::~Texture()
 {
+    surfObjVector.clear();
     delete (_surfObjArray);
     CUDA_CHECK(cudaFree(d_surfObjArray));
 }
 
-int Texture::mapTextureToSurfaceObject()
+int Texture::mapTextureToSurfaceObject(bool uploadToDevice)
 {
     // map the resource to cuda
     CUDA_CHECK_RETURN(cudaGraphicsMapResources(1, &_graphicsResource));
@@ -73,12 +76,19 @@ int Texture::mapTextureToSurfaceObject()
         resDesc.resType = cudaResourceTypeArray;
         resDesc.res.array.array = arrayPtr;
         _surfObjArray[i] = 0;
-        CUDA_CHECK_RETURN(cudaCreateSurfaceObject(&_surfObjArray[i], &resDesc));
+        auto b = surfObjVector.data() + i;
+        
+        CUDA_CHECK_RETURN(cudaCreateSurfaceObject(b, &resDesc));
         CUDA_CHECK_RETURN(cudaGetLastError());
     }
-    CUDA_CHECK_RETURN(cudaMemcpy(d_surfObjArray, _surfObjArray,
-                                 _textureDepth * sizeof(cudaSurfaceObject_t),
-                                 cudaMemcpyHostToDevice));
+    if (uploadToDevice)
+    {
+        CUDA_CHECK_RETURN(
+            cudaMemcpy(d_surfObjArray, surfObjVector.data(),
+                       _textureDepth * sizeof(cudaSurfaceObject_t),
+                       cudaMemcpyHostToDevice));
+    }
+    
     return SUCCESS_INTEROP_CODE;
 }
 
@@ -88,7 +98,7 @@ int Texture::unmapTextureToSurfaceObject()
     // we destroy each surface object
     for (int i = 0; i < _textureDepth; i++)
     {
-        CUDA_CHECK_RETURN(cudaDestroySurfaceObject(_surfObjArray[i]));
+        CUDA_CHECK_RETURN(cudaDestroySurfaceObject(surfObjVector[i]));
     }
     CUDA_CHECK_RETURN(cudaGetLastError());
     return SUCCESS_INTEROP_CODE;
@@ -124,6 +134,12 @@ void *Texture::getNativeTexturePtr() const
     return _textureHandle;
 }
 
+cudaGraphicsResource *Texture::getCudaGraphicsResource()
+    const
+{
+    return _graphicsResource;
+}
+
 cudaSurfaceObject_t *Texture::getSurfaceObjectArray() const
 {
     // to use a complete array of surface object in a kernel,
@@ -145,6 +161,11 @@ cudaSurfaceObject_t Texture::getSurfaceObject(int indexInArray) const
     // we can use directly the surface object that
     // is on host side, because cudaSurfaceObject_t is a
     // typename for unsigned long long which can be directly
-    // send to kernel as it's managed memory ?
-    return _surfObjArray[indexInArray];
+    // send to kernel as it's managed memory ? 
+    return surfObjVector[indexInArray];
+}
+
+const cudaSurfaceObject_t* Texture::getSurfaceObjectVectorDataPointer() const
+{
+    return surfObjVector.data();
 }

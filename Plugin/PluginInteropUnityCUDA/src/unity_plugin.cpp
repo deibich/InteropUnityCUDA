@@ -148,6 +148,20 @@ extern "C"
     }
 
     UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API
+    UnregisterAction(size_t key)
+    {
+        auto actionIt = _registerActions.begin();
+        actionIt += key;
+        if (actionIt != _registerActions.end())
+        {
+            Action *action = _registerActions.at(key);
+            _registerActions.erase(actionIt);
+            action->IsActive = false;
+        }
+    }
+
+
+    UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API
     InitializeRegisterActions(int reserveCapacity)
     {
         _registerActions.clear();
@@ -157,7 +171,7 @@ extern "C"
 
 void DisableAction(Action *actionToDisable)
 {
-    actionToDisable->IsActive = false;
+        actionToDisable->IsActive = false;
 }
 
 static void OnRenderEvent(int eventID)
@@ -209,7 +223,7 @@ static void OnRenderEvent(int eventID)
             assert(ret == 0);
             break;
         case ErrorBehavior::DISABLE_ACTION:
-            if (ret != 0)
+            if (ret != 0 && _registerActions.size() > realEventID)
             {
                 DisableAction(_registerActions[realEventID]);
                 Log::log().debugLogError(

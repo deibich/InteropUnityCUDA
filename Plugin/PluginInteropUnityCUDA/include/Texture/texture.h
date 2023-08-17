@@ -66,7 +66,7 @@ class Texture
      * object from it. To write into the surface object use the getter of
      * _surfObjArray.
      */
-    UNITY_INTERFACE_EXPORT int mapTextureToSurfaceObject();
+    UNITY_INTERFACE_EXPORT int mapTextureToSurfaceObject(bool uploadToDevice = true);
 
     /**
      * Unmap the cuda array from graphics resources and destroy surface object
@@ -113,6 +113,9 @@ class Texture
      */
     UNITY_INTERFACE_EXPORT void *getNativeTexturePtr() const;
 
+    
+    UNITY_INTERFACE_EXPORT cudaGraphicsResource *getCudaGraphicsResource() const;
+
     /**
      * Get the pointer of d_surfObjArray
      * This array of surface object is necessary
@@ -131,6 +134,10 @@ class Texture
     UNITY_INTERFACE_EXPORT cudaSurfaceObject_t
     getSurfaceObject(int indexInArray = 0) const;
 
+
+    const UNITY_INTERFACE_EXPORT cudaSurfaceObject_t *
+    getSurfaceObjectVectorDataPointer() const;
+
     protected:
     // Pointer to the texture created in Unity
     void *_textureHandle;
@@ -147,6 +154,7 @@ class Texture
     // An array of surface object that will be of the size of texture depth
     // This array is allocate on host side and will be copy to device memory
     // when texture is map to it
+    std::vector<cudaSurfaceObject_t> surfObjVector{};
     cudaSurfaceObject_t *_surfObjArray;
 
     // A device array of surface object that will be of the size of texture depth

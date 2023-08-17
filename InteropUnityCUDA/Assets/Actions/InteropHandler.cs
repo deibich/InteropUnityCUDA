@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Rendering;
 
 namespace ActionUnity
 {
@@ -46,7 +47,10 @@ namespace ActionUnity
 
         [DllImport(_dllPluginInterop)]
         private static extern int RegisterAction(IntPtr action);
-        
+
+        [DllImport(_dllPluginInterop)]
+        private static extern void UnregisterAction(int actionKey);
+
         [DllImport(_dllPluginInterop)]
         private static extern void InitializeRegisterActions(int reserveCapacity);
 
@@ -143,7 +147,11 @@ namespace ActionUnity
             // 0 -> Start
             // 1 -> Update
             // 2 -> OnDestroy
-            GL.IssuePluginEvent(GetRenderEventFunc(), 3 * _actionsNames[actionName] + (int) actionType);
+            CommandBuffer cb = new CommandBuffer();
+            cb.IssuePluginEvent(GetRenderEventFunc(), 3 * _actionsNames[actionName] + (int)actionType);
+            //Graphics.ExecuteCommandBuffer
+            Graphics.ExecuteCommandBuffer(cb);
+            // GL.IssuePluginEvent(GetRenderEventFunc(), 3 * _actionsNames[actionName] + (int) actionType);
         }
 
         /// <summary>
@@ -203,7 +211,25 @@ namespace ActionUnity
             _actionsNames.Add(actionName, key);
             _registeredActions.Add(key, action);
         }
-        
+
+        protected void UnregisterActionUnity(string actionName)
+        {
+            if (!_actionsNames.ContainsKey(actionName))
+            {
+                Debug.LogError("Unable to unregister action with actionName " + actionName +
+                               ", because there is no action with the name");
+                return;
+            }
+
+            int key = -1;
+            if(_actionsNames.TryGetValue(actionName, out key))
+            {
+                UnregisterAction(key);
+                _registeredActions.Remove(key);
+                _actionsNames.Remove(actionName);
+            }
+        }
+
         /// <summary>
         /// Get action unity
         /// </summary>

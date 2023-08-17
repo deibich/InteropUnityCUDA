@@ -9,7 +9,7 @@ namespace ActionUnity
 		const string _dllSampleBasic = "SampleBasic";
 
 		[DllImport(_dllSampleBasic)]
-		private static extern IntPtr createActionSampleTextureBasic(IntPtr texturePtr, int width, int height);
+		private static extern IntPtr createActionSampleTextureBasic(IntPtr texturePtr, int width, int height, int depth);
 		
 		/// <summary>
 		/// create a pointer to actionSampleTexture object that has been created in native plugin
@@ -17,7 +17,7 @@ namespace ActionUnity
 		/// <param name="texture">texture that will be used in interoperability</param>
 		public ActionUnitySampleTexture(Texture texture) : base()
 		{
-			_actionPtr = createActionSampleTextureBasic(texture.GetNativeTexturePtr(), texture.width, texture.height);
+			_actionPtr = createActionSampleTextureBasic(texture.GetNativeTexturePtr(), texture.width, texture.height, 2);
 		}
 	}
 

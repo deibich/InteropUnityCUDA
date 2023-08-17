@@ -34,8 +34,7 @@ target_link_libraries(PluginInteropUnityCUDA
         CUDA::cudart
         Utilities
         unity_api
-        unofficial::gl3w::gl3w        
+        unofficial::gl3w::gl3w
 )
 
 install(TARGETS PluginInteropUnityCUDA DESTINATION ${UNITY_PROJECT_ROOT_DIR}/Assets/Plugin)
-
