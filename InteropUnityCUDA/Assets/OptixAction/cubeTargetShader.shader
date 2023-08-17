@@ -7,13 +7,14 @@ Shader"Unlit/Cube Target Shader"
 
     SubShader
     {
-        Tags { "RenderType"="Transparent" "Queue"="Transparent"}
+        Tags    {"RenderType"="Opaque" "Queue"="Geometry"}
+        //Tags { "RenderType"="Transparent" "Queue"="Transparent"}
 
         LOD 100
 
         Pass
         {
-            Blend SrcAlpha OneMinusSrcAlpha
+            // Blend SrcAlpha OneMinusSrcAlpha
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -65,13 +66,13 @@ Shader"Unlit/Cube Target Shader"
                     
                 //texPos.x = 1.0f - texPos.x;
                 fixed4 col = UNITY_SAMPLE_TEX2DARRAY(_MyArr, texPos);
-                float lineDepth = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, texPos));
+                // float lineDepth = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, texPos));
                 if(col.z < 0.000001f)
                 {
-                    float abc = lineDepth;
-                    discard;
+                    //float abc = lineDepth;
+                    // discard;
                 }
-                col.x += lineDepth-lineDepth;
+                //col.x += lineDepth-lineDepth;
                 return col;
             }
 

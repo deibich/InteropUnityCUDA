@@ -9,7 +9,7 @@ namespace ActionUnity
 {
     public class ActionUnityTestOptixOwl : ActionUnity
     {
-        const string _dllOptixActions = "OptixActions";
+        const string _dllOptixActions = "OptixAction";
 
         [DllImport(_dllOptixActions)]
         private static extern IntPtr createActionTestOpixOwl(IntPtr texturePtr, int width, int height, int depth);

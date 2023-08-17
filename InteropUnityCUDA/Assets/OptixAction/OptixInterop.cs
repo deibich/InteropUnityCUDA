@@ -168,7 +168,6 @@ public class OptixInterop : InteropHandler
         var onePxDirectionV = (pxLowerLeft - pxUpperLeft) / _rendgineTextureDescriptor.height;
 
         var camToUpperLeft = (pxUpperLeft - eyePos);
-        Debug.Log(eyePos);
         nativeRenderingData.nativeCameradata[eyeIndex].cameraPositionWorld = eyePos;
         nativeRenderingData.nativeCameradata[eyeIndex].cameraToUpperLeftScreen = camToUpperLeft;
         nativeRenderingData.nativeCameradata[eyeIndex].pxStepU = onePxDirectionU;

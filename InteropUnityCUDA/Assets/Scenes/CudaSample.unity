@@ -328,11 +328,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 115995700}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 321aaca9f5c378d4982cd6a3203bb95e, type: 3}
+  m_Script: {fileID: 11500000, guid: ccf9ced7ccbcd1845892a1b6d8b8babb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cs: {fileID: 7200000, guid: 4a7e61b40d2dcd44e95c3daf0d2dfd5a, type: 3}
+  hSliderValue: 0
+  vSliderValue: 0.03
   img: {fileID: 1722569711}
+  cubeRenderer: {fileID: 909050478}
+  boxTransform: {fileID: 909050480}
 --- !u!1 &457439130
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,7 +577,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1141965230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -675,7 +678,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1481933496
 BoxCollider:
   m_ObjectHideFlags: 0
